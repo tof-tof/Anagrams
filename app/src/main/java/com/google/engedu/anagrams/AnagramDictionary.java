@@ -35,6 +35,7 @@ public class AnagramDictionary {
     private ArrayList<String> wordList= new ArrayList<>();
     private HashSet<String> wordSet = new HashSet<>();
     private HashMap<String,ArrayList<String>> lettersToWord = new HashMap<>();
+    private String baseWord;
 
     public AnagramDictionary(Reader reader) throws IOException {
         BufferedReader in = new BufferedReader(reader);
@@ -55,33 +56,51 @@ public class AnagramDictionary {
     }
 
     public boolean isGoodWord(String word, String base) {
-        return true;
+        return wordSet.contains(word) && !word.contains(base);
     }
-
+//todo: add to getAnagramsWithOneMoreLetter result once updated to use hashsets
     public List<String> getAnagrams(String targetWord) {
         String sortedWord = sortLetters(targetWord);
-        ArrayList<String> result = new ArrayList<String>();
-        for (String word: wordList){
-            if(sortedWord==sortLetters(word)){
-              result.add(word);
-            }
-        }
+        ArrayList<String> result = new ArrayList<String>(lettersToWord.get(sortedWord));
         result.remove(targetWord);
         return result;
     }
 
-    String sortLetters(String word){
+    private String sortLetters(String word){
         char[] wordArray = word.toCharArray();
         Arrays.sort(wordArray);
         return new String(wordArray);
     }
 
     public List<String> getAnagramsWithOneMoreLetter(String word) {
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         ArrayList<String> result = new ArrayList<String>();
+        for (char letter: alphabet){
+            String wordPlus = sortLetters(word+letter);
+            if (lettersToWord.containsKey(wordPlus)){
+                for (String CandidateWord: lettersToWord.get(wordPlus)){
+                    if (isGoodWord(CandidateWord, baseWord)){
+                        result.add(CandidateWord);
+                    }
+                }
+            }
+        }
+        result.addAll(getAnagrams(word));
         return result;
     }
 
     public String pickGoodStarterWord() {
-        return "stop";
+        baseWord ="top";
+        return "top";
+        /*
+        int len = wordList.size();
+        while(true){
+            String chosenWord = wordList.get(random.nextInt(len));
+            if(lettersToWord.get(sortLetters(chosenWord)).size()>MIN_NUM_ANAGRAMS && chosenWord.length()>=DEFAULT_WORD_LENGTH && chosenWord.length()<= MAX_WORD_LENGTH){
+                baseWord = ChosenWord
+                return chosenWord;
+            }
+        }
+        */
     }
 }
