@@ -140,10 +140,13 @@ public class AnagramsActivity extends AppCompatActivity {
         } else {
             editText.setText(currentWord);
             editText.setEnabled(false);
+            fab.hide();
             fab.setImageResource(android.R.drawable.ic_media_play);
+            fab.show();
             currentWord = null;
             resultView.append(TextUtils.join("\n", anagrams));
-            gameStatus.append(" Hit 'Play' to start again");
+            gameStatus.setText(" Hit 'Play' to start again");
+
         }
         return true;
     }

@@ -27,7 +27,7 @@ import java.util.Random;
 
 public class AnagramDictionary {
 
-    private static final int MIN_NUM_ANAGRAMS = 5;
+    private static final int MIN_NUM_ANAGRAMS = 7;
     private static final int DEFAULT_WORD_LENGTH = 3;
     private static final int MAX_WORD_LENGTH = 7;
     private Random random = new Random();
