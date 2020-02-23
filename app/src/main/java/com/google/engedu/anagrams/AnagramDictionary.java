@@ -35,6 +35,7 @@ public class AnagramDictionary {
     private ArrayList<String> wordList= new ArrayList<>();
     private HashSet<String> wordSet = new HashSet<>();
     private HashMap<String,ArrayList<String>> lettersToWord = new HashMap<>();
+    private HashMap<Integer,ArrayList<String>> sizeToWord = new HashMap<>();
     private String baseWord;
 
     public AnagramDictionary(Reader reader) throws IOException {
@@ -52,13 +53,20 @@ public class AnagramDictionary {
                 newList.add(word);
                 lettersToWord.put(sortedWord, newList);
             }
+            int wordSize = word.length();
+            if (sizeToWord.containsKey(wordSize)){
+                sizeToWord.get(wordSize).add(word);
+            }else {
+                ArrayList<String> list = new ArrayList<>();
+                list.add(word);
+                sizeToWord.put(wordSize, list);
+            }
         }
     }
 
     public boolean isGoodWord(String word, String base) {
         return wordSet.contains(word) && !word.contains(base);
     }
-//todo: add to getAnagramsWithOneMoreLetter result once updated to use hashsets
     public List<String> getAnagrams(String targetWord) {
         String sortedWord = sortLetters(targetWord);
         ArrayList<String> result = new ArrayList<String>(lettersToWord.get(sortedWord));
@@ -90,17 +98,15 @@ public class AnagramDictionary {
     }
 
     public String pickGoodStarterWord() {
-        baseWord ="top";
-        return "top";
-        /*
+        //baseWord ="top";
+        //return "top";
         int len = wordList.size();
         while(true){
             String chosenWord = wordList.get(random.nextInt(len));
             if(lettersToWord.get(sortLetters(chosenWord)).size()>MIN_NUM_ANAGRAMS && chosenWord.length()>=DEFAULT_WORD_LENGTH && chosenWord.length()<= MAX_WORD_LENGTH){
-                baseWord = ChosenWord
+                baseWord = chosenWord;
                 return chosenWord;
             }
         }
-        */
     }
 }
