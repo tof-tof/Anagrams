@@ -140,6 +140,7 @@ public class AnagramsActivity extends AppCompatActivity {
         } else {
             editText.setText(currentWord);
             editText.setEnabled(false);
+            fab.hide();
             fab.setImageResource(android.R.drawable.ic_media_play);
             fab.show();
             currentWord = null;
