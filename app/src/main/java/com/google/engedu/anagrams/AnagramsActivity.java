@@ -141,6 +141,7 @@ public class AnagramsActivity extends AppCompatActivity {
             editText.setText(currentWord);
             editText.setEnabled(false);
             fab.setImageResource(android.R.drawable.ic_media_play);
+            fab.show();
             currentWord = null;
             resultView.append(TextUtils.join("\n", anagrams));
             gameStatus.append(" Hit 'Play' to start again");
