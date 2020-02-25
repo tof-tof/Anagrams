@@ -1,3 +1,4 @@
-#Anagrams
+# Anagrams 
 
-android app
+A simple game challenging the user to find as many anagrams as possible to a given word, given one extra letter if needed. 
+Built as an android app
